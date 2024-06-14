@@ -1,7 +1,9 @@
 try:
     from groq import Groq
 except ImportError:
-    raise ImportError("Please install the Groq package by running `pip install groq`, and add 'GROQ_API_KEY' to your environment variables.")
+    raise ImportError(
+        "Please install the Groq package by running `pip install groq`, and add 'GROQ_API_KEY' to your environment variables."
+    )
 
 import os
 import platformdirs
@@ -18,9 +20,8 @@ class ChatGroq(EngineLM, CachedEngine):
     DEFAULT_SYSTEM_PROMPT = "You are a helpful, creative, and smart assistant."
 
     def __init__(
-        self,
-        model_string="llama3-8b-8192",
-        system_prompt=DEFAULT_SYSTEM_PROMPT):
+        self, model_string="llama3-8b-8192", system_prompt=DEFAULT_SYSTEM_PROMPT
+    ):
         """
         :param model_string: The model to use with the Groq API.
         :param system_prompt: The system prompt to use as the default.
@@ -31,8 +32,10 @@ class ChatGroq(EngineLM, CachedEngine):
 
         self.system_prompt = system_prompt
         if os.getenv("GROQ_API_KEY") is None:
-            raise ValueError("Please set the GROQ_API_KEY environment variable to use Groq models.")
-        
+            raise ValueError(
+                "Please set the GROQ_API_KEY environment variable to use Groq models."
+            )
+
         self.client = Groq(
             api_key=os.getenv("GROQ_API_KEY"),
         )
