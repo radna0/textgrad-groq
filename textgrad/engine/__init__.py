@@ -5,6 +5,7 @@ __ENGINE_NAME_SHORTCUTS__ = {
     "haiku": "claude-3-haiku-20240307",
     "sonnet": "claude-3-sonnet-20240229",
     "together-llama-3-70b": "together-meta-llama/Llama-3-70b-chat-hf",
+    "groq-llama3-8b-8192": "llama3-8b-8192",
 }
 
 def get_engine(engine_name: str, **kwargs) -> EngineLM:
@@ -27,6 +28,9 @@ def get_engine(engine_name: str, **kwargs) -> EngineLM:
         from .together import ChatTogether
         engine_name = engine_name.replace("together-", "")
         return ChatTogether(model_string=engine_name, **kwargs)
+    elif engine_name.startswith("groq"):
+        from .groq import ChatGroq
+        return ChatGroq(model_string=engine_name, **kwargs)
     elif engine_name in ["command-r-plus", "command-r", "command", "command-light"]:
         from .cohere import ChatCohere
         return ChatCohere(model_string=engine_name, **kwargs)
