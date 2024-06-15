@@ -16,7 +16,7 @@ question_string = (
 question = tg.Variable(
     question_string, role_description="question to the LLM", requires_grad=False
 )
-answer = model(question_string)
+answer = model(question)
 
 answer.set_role_description("concise and accurate answer to the question")
 
